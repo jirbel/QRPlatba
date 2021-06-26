@@ -191,9 +191,9 @@ class QRPlatba
      *
      * @param $ss
      *
+     * @return $this
      * @throws QRPlatbaException
      *
-     * @return $this
      */
     public function setSpecificSymbol($ss)
     {
@@ -219,19 +219,19 @@ class QRPlatba
         return $this;
     }
 
-	/**
-	 * Nastavení jména příjemce. Z řetězce bude odstraněna diaktirika.
-	 *
-	 * @param $name
-	 *
-	 * @return $this
-	 */
-	public function setRecipientName($name)
-	{
-		$this->keys['RN'] = mb_substr($this->stripDiacritics($name), 0, 35);
+    /**
+     * Nastavení jména příjemce. Z řetězce bude odstraněna diaktirika.
+     *
+     * @param $name
+     *
+     * @return $this
+     */
+    public function setRecipientName($name)
+    {
+        $this->keys['RN'] = mb_substr($this->stripDiacritics($name), 0, 35);
 
-		return $this;
-	}
+        return $this;
+    }
 
     /**
      * Nastavení data úhrady.
@@ -276,7 +276,7 @@ class QRPlatba
             if (null === $value) {
                 continue;
             }
-            $chunks[] = $key.':'.$value;
+            $chunks[] = $key . ':' . $value;
         }
 
         return implode('*', $chunks);
@@ -286,7 +286,7 @@ class QRPlatba
      * Metoda vrátí QR kód jako HTML tag, případně jako data-uri.
      *
      * @param bool $htmlTag
-     * @param int  $size
+     * @param int $size
      *
      * @return string
      */
@@ -329,11 +329,10 @@ class QRPlatba
     public function getQRCodeInstance($size = 300)
     {
         $qrCode = new QrCode();
-        $qrCode
-            ->setText((string) $this)
-            ->setSize($size)
-            ->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0])
-            ->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
+        $qrCode->setText((string)$this);
+        $qrCode->setSize($size);
+        $qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0]);
+        $qrCode->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
 
         return $qrCode;
     }
@@ -358,7 +357,7 @@ class QRPlatba
         }
 
         $accountPart = sprintf('%06d%010s', $pre, $acc);
-        $iban = 'CZ00'.$bank.$accountPart;
+        $iban = 'CZ00' . $bank . $accountPart;
 
         $alfa = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z';
         $alfa = explode(' ', $alfa);
@@ -369,9 +368,9 @@ class QRPlatba
         $controlegetal = str_replace(
             $alfa,
             $alfa_replace,
-            mb_substr($iban, 4, mb_strlen($iban) - 4).mb_substr($iban, 0, 2).'00'
+            mb_substr($iban, 4, mb_strlen($iban) - 4) . mb_substr($iban, 0, 2) . '00'
         );
-        $controlegetal = 98 - (int) bcmod($controlegetal, 97);
+        $controlegetal = 98 - (int)bcmod($controlegetal, 97);
         $iban = sprintf('CZ%02d%04d%06d%010s', $controlegetal, $bank, $pre, $acc);
 
         return $iban;
