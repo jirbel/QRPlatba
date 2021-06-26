@@ -68,7 +68,7 @@ class QRPlatba
         // Max. 10 znaků - Celé číslo - Variabilní symbol
         'X-SS' => null,
         // Max. 10 znaků - Celé číslo - Specifický symbol
-        'X-CS' => null,
+        'X-KS' => null,
         // Max. 10 znaků - Celé číslo - Konstantní symbol
         'RF' => null,
         // Max. 16 znaků - Identifikátor platby pro příjemce.
@@ -181,7 +181,7 @@ class QRPlatba
      */
     public function setConstantSymbol($cs)
     {
-        $this->keys['X-CS'] = $cs;
+        $this->keys['X-KS'] = $cs;
 
         return $this;
     }
