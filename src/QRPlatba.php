@@ -68,7 +68,7 @@ class QRPlatba
         // Max. 10 znaků - Celé číslo - Variabilní symbol
         'X-SS' => null,
         // Max. 10 znaků - Celé číslo - Specifický symbol
-        'X-KS' => null,
+        'X-CS' => null,
         // Max. 10 znaků - Celé číslo - Konstantní symbol
         'RF' => null,
         // Max. 16 znaků - Identifikátor platby pro příjemce.
